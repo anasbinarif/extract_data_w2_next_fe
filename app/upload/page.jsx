@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Audio, CirclesWithBar } from "react-loader-spinner";
+import { CirclesWithBar } from "react-loader-spinner";
 import useStore from "../store";
 import { BiLogOut } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -29,10 +29,11 @@ const FileUploadPage = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        console.error("Network response was not ok");
       }
       setUsername("");
-      const data = await response.json();
+      router.push("/");
+      await response.json();
     } catch (error) {
       console.error("Error logging out:", error);
     } finally {
@@ -67,19 +68,15 @@ const FileUploadPage = () => {
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
-        throw new Error("Login failed. Check your credentials.");
+        console.error("Login failed. Check your credentials.");
       }
       setLoading(false);
       setUploaded(true);
-      const data = await response.json();
+      await response.json();
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-  if (username == "") {
-    return router.push("/");
-  }
 
   return (
     <div className="flex flex-col items-center mt-8">

@@ -13,7 +13,7 @@ let fieldsState = {};
 
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
-const page = () => {
+const SignUpPage = () => {
   const router = useRouter();
   const [signupState, setSignupState] = useState(fieldsState);
 
@@ -43,10 +43,8 @@ const page = () => {
         if (!response.ok) {
           throw new Error("Login failed. Check your credentials.");
         }
+          router.push("/");
         return response.json();
-      })
-      .then((data) => {
-        router.push("/");
       })
       .catch((error) => {
         throw new Error("Error registering user:", error);
@@ -85,4 +83,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;
